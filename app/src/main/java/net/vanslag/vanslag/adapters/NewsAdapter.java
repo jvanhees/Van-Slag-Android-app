@@ -1,4 +1,4 @@
-package net.vanslag.vanslag;
+package net.vanslag.vanslag.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import net.vanslag.vanslag.models.News;
+import net.vanslag.vanslag.R;
+
 import java.util.List;
 
 /**

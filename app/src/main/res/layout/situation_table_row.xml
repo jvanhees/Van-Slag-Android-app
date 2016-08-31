@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <TextView
+        android:id="@+id/position"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="1" />
+
+    <TextView
+        android:id="@+id/title"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Worst Kaas Scenario" />
+
+    <TextView
+        android:id="@+id/points"
+        android:gravity="right"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="5" />
+
+    <TextView
+        android:id="@+id/machtes_won"
+        android:gravity="right"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="2" />
+
+    <TextView
+        android:id="@+id/machtes_lost"
+        android:gravity="right"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="3" />
+
+    <View
+        android:layout_height="1dip"
+        android:background="#FF909090" />
+
+</TableRow>

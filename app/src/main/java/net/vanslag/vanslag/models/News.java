@@ -1,4 +1,4 @@
-package net.vanslag.vanslag;
+package net.vanslag.vanslag.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,9 +12,9 @@ public class News {
     long id;
 
     @SerializedName("created_at")
-    Date dateCreated;
+    public Date dateCreated;
 
-    String title;
-    String slug;
-    String body;
+    public String title;
+    public String slug;
+    public String body;
 }

@@ -1,40 +1,39 @@
-package net.vanslag.vanslag;
+package net.vanslag.vanslag.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import net.vanslag.vanslag.VanSlagApplication;
+import net.vanslag.vanslag.models.News;
+import net.vanslag.vanslag.adapters.NewsAdapter;
+import net.vanslag.vanslag.R;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    public final static String EXTRA_MESSAGE = "net.vanslag.vanslag.MESSAGE";
-
     private static final String TAG_TITLE = "title";
     private static final String TAG_BODY = "body";
 
     private RequestQueue requestQueue;
-    private Gson gson;
 
-    private String newsUrl = "https://www.vanslag.net/news.json";
+    private String newsUrl = "https://vanslag.net/news.json";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -46,16 +45,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(this);
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        gson = gsonBuilder.create();
+        requestQueue = ((VanSlagApplication) getApplicationContext()).getQueue();
 
         fetchNews();
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public void goToSituation(View view) {
+        Intent intent = new Intent(this, SituationActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToTeams(View view) {
+        Intent intent = new Intent(this, TeamsActivity.class);
+        startActivity(intent);
     }
 
     public void fetchNews() {
@@ -66,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     private final Response.Listener<String> onNewsLoaded = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            List<News> newsItems = Arrays.asList(gson.fromJson(response, News[].class));
+
+            List<News> newsItems = ((VanSlagApplication) getApplicationContext()).parseNews(response);
 
             NewsAdapter adapter = new NewsAdapter(getApplicationContext(), newsItems);
 
@@ -79,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     private final Response.ErrorListener onNewsError = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("NewsActivity", error.toString());
+            Log.d("VOLLEY", error.toString());
+            Toast.makeText(getApplicationContext(), "Unable to load news:" + error.toString(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -97,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: If you have web page content that matches this app activity's content,
                 // make sure this auto-generated web page URL is correct.
                 // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
+                Uri.parse("http://vanslag.net"),
                 // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://net.vanslag.vanslag/http/host/path")
         );
