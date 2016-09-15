@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
-    private String newsUrl = "https://vanslag.net/news.json";
+    private String newsUrl;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         requestQueue = ((VanSlagApplication) getApplicationContext()).getQueue();
+        String baseUrl =  ((VanSlagApplication) getApplicationContext()).getBaseUrl();
+
+        newsUrl = baseUrl + "news.json";
 
         fetchNews();
 

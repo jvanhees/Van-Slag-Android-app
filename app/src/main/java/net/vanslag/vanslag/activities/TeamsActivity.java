@@ -1,6 +1,7 @@
 package net.vanslag.vanslag.activities;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import net.vanslag.vanslag.R;
 import net.vanslag.vanslag.VanSlagApplication;
+import net.vanslag.vanslag.data.VanSlagDbHelper;
 import net.vanslag.vanslag.models.Team;
 
 import java.util.Arrays;
@@ -22,7 +24,7 @@ public class TeamsActivity extends Activity {
 
     private RequestQueue requestQueue;
 
-    private String teamsUrl = "https://www.vanslag.net/teams.json";
+    private String teamsUrl;
 
 
     @Override
@@ -31,6 +33,9 @@ public class TeamsActivity extends Activity {
         setContentView(R.layout.activity_teams);
 
         requestQueue = ((VanSlagApplication) getApplicationContext()).getQueue();
+        String baseUrl = ((VanSlagApplication) getApplicationContext()).getBaseUrl();
+
+        teamsUrl = baseUrl + "teams.json";
 
         fetchTeams();
     }

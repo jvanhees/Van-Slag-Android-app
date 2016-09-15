@@ -19,7 +19,7 @@ import java.util.List;
 public class SituationActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
-    private String situationUrl = "https://www.vanslag.net/news.json";
+    private String situationUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,9 @@ public class SituationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_situation);
 
         requestQueue = ((VanSlagApplication) getApplicationContext()).getQueue();
+        String baseUrl = ((VanSlagApplication) getApplicationContext()).getBaseUrl();
+
+        situationUrl = baseUrl + "news.json";
 
         fetchSituation();
     }

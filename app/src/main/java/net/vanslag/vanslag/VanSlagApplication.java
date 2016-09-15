@@ -19,6 +19,7 @@ public class VanSlagApplication extends Application {
 
     private Gson gson;
     private RequestQueue queue;
+    private String baseUrl = "http://api.vanslag.net/";
 
     @Override
     public void onCreate() {
@@ -35,6 +36,8 @@ public class VanSlagApplication extends Application {
     public RequestQueue getQueue() {
         return queue;
     }
+
+    public String getBaseUrl() { return baseUrl; }
 
     public List parseNews(String inputString){
         return Arrays.asList(gson.fromJson(inputString, News[].class));
